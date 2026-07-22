@@ -1,5 +1,5 @@
 /* Surfboard service worker - offline-first caching */
-const CACHE = 'surfboard-v2';
+const CACHE = 'surfboard-v3';
 const ASSETS = [
   './',
   './index.html',
@@ -12,6 +12,11 @@ const ASSETS = [
   './icon-512.png',
   './apple-touch-icon.png',
   './manifest.webmanifest',
+  './logos/songchainn.png',
+  './logos/zabal.png',
+  './logos/base.png',
+  './logos/metamask.png',
+  './logos/binance.png',
   './fonts/font_0.woff2', './fonts/font_1.woff2', './fonts/font_2.woff2',
   './fonts/font_3.woff2', './fonts/font_4.woff2', './fonts/font_5.woff2',
   './fonts/font_6.woff2', './fonts/font_7.woff2', './fonts/font_8.woff2',

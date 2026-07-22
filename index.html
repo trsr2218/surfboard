@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0B0710">
 <title>Surfboard - Your on-ramp into web3</title>
-<meta name="description" content="Surfboard by N3M3SIS. The fun, 2-minute on-ramp that gets musicians onto web3, Songchainn, and the ZABAL Gamez.">
+<meta name="description" content="Surfboard by N3M3SIS. The fun, 2-minute on-ramp that gets musicians onto web3, $ONGCHAINN, and the ZABAL Gamez.">
 <link rel="canonical" href="https://board.diyama.online/">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="manifest" href="manifest.webmanifest">
@@ -19,7 +19,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Surfboard">
 <meta property="og:title" content="Surfboard - Your on-ramp into web3">
-<meta property="og:description" content="Your 2-minute on-ramp into web3. Own your music on Songchainn, drop your verse, and play the Cypher for the ZABAL Gamez prize pool. A build by N3M3SIS.">
+<meta property="og:description" content="Your 2-minute on-ramp into web3. Own your music on $ONGCHAINN, drop your verse, and play the Cypher for the ZABAL Gamez prize pool. A build by N3M3SIS.">
 <meta property="og:url" content="https://board.diyama.online/">
 <meta property="og:image" content="https://board.diyama.online/og.png">
 <meta property="og:image:width" content="1200">
@@ -237,6 +237,38 @@
     .card{ padding:38px 34px 30px; }
   }
 
+  /* ---------- platform logos ---------- */
+  .plogo{ width:36px; height:36px; border-radius:9px; object-fit:contain; background:#fff; padding:4px; flex-shrink:0; }
+  .plogo.round{ border-radius:50%; }
+  .brand-head{ display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+  .zabal-banner{ width:100%; max-width:270px; height:auto; border-radius:10px; margin-bottom:16px; display:block; }
+
+  /* ---------- highlighted lesson ---------- */
+  .lesson{ border:1px solid rgba(255,182,39,0.35); border-radius:var(--radius); padding:26px 22px;
+    background:linear-gradient(160deg, rgba(255,182,39,0.07), rgba(62,230,224,0.05)); }
+  .lesson-badge{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--gold); border:1px solid rgba(255,182,39,0.4); background:rgba(255,182,39,0.08);
+    padding:5px 11px; border-radius:100px; margin-bottom:14px; }
+  .wallet-grid{ display:flex; flex-direction:column; gap:14px; margin-top:6px; }
+  .wallet-card{ border:1px solid var(--line); border-radius:12px; padding:18px; background:rgba(21,12,30,0.6); }
+  .wallet-card .wc-head{ display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+  .wallet-card .wc-head b{ font-size:17px; color:var(--off); }
+  .wallet-card .rec{ font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--green); border:1px solid rgba(91,242,154,0.4); padding:3px 8px; border-radius:100px; margin-left:auto; white-space:nowrap; }
+  .wallet-card ol{ margin:0 0 0 18px; padding:0; }
+  .wallet-card ol li{ font-size:14px; color:var(--off-dim); line-height:1.7; padding-left:4px; }
+  .wallet-card .wc-text{ font-size:14px; color:var(--off-dim); line-height:1.7; }
+
+  /* ---------- faq / ask ai ---------- */
+  .faq-prompt{ border:1px solid var(--line); border-radius:12px; padding:16px 16px 14px; background:rgba(21,12,30,0.6);
+    margin-top:12px; display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
+  .faq-prompt p{ font-size:14.5px; color:var(--off); font-style:italic; }
+  .copy-btn{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.08em; text-transform:uppercase;
+    padding:9px 16px; min-height:40px; border-radius:100px; border:1px solid var(--line); background:transparent;
+    color:var(--cyan); cursor:pointer; transition:transform 0.12s; }
+  .copy-btn:active{ transform:scale(0.96); }
+  .copy-btn.copied{ color:var(--green); border-color:rgba(91,242,154,0.4); }
+
   /* ---------- accessibility ---------- */
   :focus-visible{ outline:2px solid var(--cyan); outline-offset:3px; border-radius:4px; }
   .dot{ border:none; padding:0; cursor:pointer; }
@@ -367,6 +399,69 @@
 
   <div class="section-line"></div>
 
+  <!-- ================= WALLET LESSON ================= -->
+  <section id="wallet">
+    <div class="lesson reveal">
+      <div class="lesson-badge">The most important lesson</div>
+      <h2>First move: get your wallet</h2>
+      <p style="margin-bottom:14px">Before anything else, you need a wallet. Your wallet has an address, a long code that starts with <span class="mono" style="color:var(--cyan)">0x</span>. That address is how you receive every kind of money you earn or win. No wallet, no bag. Think of it as your account number for the internet of money, and you are the only one who holds the key.</p>
+
+      <div class="label" style="margin:24px 0 12px">Pick a wallet</div>
+      <div class="wallet-grid">
+        <div class="wallet-card">
+          <div class="wc-head"><img class="plogo round" src="logos/base.png" alt="Base App" width="36" height="36"><b>Base App</b><span class="rec">Best for Africa</span></div>
+          <ol>
+            <li>Install the Base App from your phone app store.</li>
+            <li>Open it and sign up with your email or a passkey.</li>
+            <li>Your wallet is created for you automatically. No 12 words to memorise.</li>
+            <li>Tap Receive to see and copy your wallet address. That is what you share to get paid.</li>
+          </ol>
+        </div>
+        <div class="wallet-card">
+          <div class="wc-head"><img class="plogo round" src="logos/metamask.png" alt="MetaMask" width="36" height="36"><b>MetaMask</b></div>
+          <ol>
+            <li>Install MetaMask, the phone app or the browser add-on.</li>
+            <li>Tap Create a new wallet and set a strong password.</li>
+            <li>It shows you 12 secret words. Write them on paper and hide them. Never type them anywhere online.</li>
+            <li>Confirm the words. Done. Tap your address at the top to copy it.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="label" style="margin:26px 0 12px; color:var(--magenta)">Keep it safe</div>
+      <ul class="risk-list">
+        <li><span class="rx">01</span><span>Your password and your 12 secret words are the keys to your money. Never share them with anyone, ever.</span></li>
+        <li><span class="rx">02</span><span>No real company or person will ever ask for your secret words. Anyone who asks is trying to rob you.</span></li>
+        <li><span class="rx">03</span><span>Write the words on paper. Do not keep them in screenshots, photos, WhatsApp or email.</span></li>
+        <li><span class="rx">04</span><span>Always check the address before you send. Money sent cannot be undone.</span></li>
+      </ul>
+
+      <div class="label" style="margin:26px 0 12px; color:var(--cyan)">Send and receive money, simply</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">A</div><div class="step-b"><b>To get paid</b><span>Copy your wallet address and share it. The money lands straight in your wallet.</span></div></div>
+        <div class="step"><div class="step-num">B</div><div class="step-b"><b>To send</b><span>Paste the other person's address, type the amount, check it twice, then confirm.</span></div></div>
+        <div class="step"><div class="step-num">C</div><div class="step-b"><b>First time?</b><span>Send a small test amount first. Once it arrives safe, send the rest with confidence.</span></div></div>
+      </div>
+
+      <div class="label" style="margin:26px 0 12px; color:var(--gold)">Turn tokens into Kwacha</div>
+      <p style="margin-bottom:14px">When you earn or win a token, you can cash it out into Zambian Kwacha:</p>
+      <div class="wallet-grid">
+        <div class="wallet-card">
+          <div class="wc-head"><img class="plogo" src="logos/binance.png" alt="Binance" width="36" height="36"><b>Binance P2P</b></div>
+          <span class="wc-text">Sell your crypto to real buyers for Kwacha, paid straight to your mobile money or bank. You set the price, and Binance holds the crypto safe until you confirm you got paid.</span>
+        </div>
+        <div class="wallet-card">
+          <div class="wc-head"><span class="plogo" style="display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,var(--magenta),var(--cyan)); color:var(--ink); font-family:'Anton'; font-size:16px">S</span><b>Shwa App</b><span class="rec" style="color:var(--gold); border-color:rgba(255,182,39,0.4)">Coming soon</span></div>
+          <span class="wc-text">An even simpler local way to turn your crypto into Kwacha, built for this community. Landing soon.</span>
+        </div>
+      </div>
+
+      <div class="safe-note" style="margin-top:22px; border-color:rgba(91,242,154,0.35)"><b style="color:var(--green)">Why this matters:</b> the same wallet is your key to join every platform ahead. One wallet opens $ONGCHAINN, the ZABAL Gamez and The ZAO. Set it up once, and every door is open.</div>
+    </div>
+  </section>
+
+  <div class="section-line"></div>
+
   <!-- ================= N3M3SIS ================= -->
   <section id="nemesis">
     <div class="nem reveal">
@@ -402,8 +497,8 @@
   <section id="songchainn">
     <div class="reveal">
       <div class="eyebrow">Opportunity 01</div>
-      <h2>Songchainn</h2>
-      <p style="margin-bottom:18px">The home for your sound. Songchainn is a web3 music platform where you upload your music, own it on-chain, get discovered, and get paid without the usual middlemen taking the first and biggest cut.</p>
+      <div class="brand-head"><img class="plogo round" src="logos/songchainn.png" alt="$ONGCHAINN" width="36" height="36"><h2 style="margin:0">$ONGCHAINN</h2></div>
+      <p style="margin-bottom:18px">The home for your sound. $ONGCHAINN is a web3 music platform where you upload your music, own it on-chain, get discovered, and get paid without the usual middlemen taking the first and biggest cut.</p>
     </div>
     <div class="opp reveal">
       <div class="tag" style="color:var(--cyan)">What you do here</div>
@@ -418,7 +513,7 @@
         <span class="chip">On-chain proof</span>
       </div>
     </div>
-    <a class="cta-btn ghost reveal" data-cta="songchainn" style="display:flex; margin-top:16px">Open Songchainn &rarr;</a>
+    <a class="cta-btn ghost reveal" data-cta="songchainn" style="display:flex; margin-top:16px">Open $ONGCHAINN &rarr;</a>
   </section>
 
   <div class="section-line"></div>
@@ -426,6 +521,7 @@
   <!-- ================= ZABAL GAMEZ ================= -->
   <section id="zabal">
     <div class="reveal">
+      <img class="zabal-banner" src="logos/zabal.png" alt="ZABAL Gamez" width="270">
       <div class="eyebrow gold" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap">Opportunity 02
         <span class="mono" style="font-size:11px; letter-spacing:0.15em; color:var(--green); border:1px solid rgba(91,242,154,0.4); background:rgba(91,242,154,0.08); padding:4px 10px; border-radius:100px">LIVE NOW</span>
       </div>
@@ -437,13 +533,13 @@
       <div class="tag" style="color:var(--magenta)">The Cypher &middot; how to enter in July</div>
       <div class="steps">
         <div class="step"><div class="step-num">1</div><div class="step-b"><b>Onboard through Surfboard</b><span>You just did the web3 part above. That was the hard bit, and it is done.</span></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-b"><b>Head to Songchainn</b><span>Go to songchainn.xyz and open the Join ZABAL Gamez page. Everything for the contest lives right there.</span></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-b"><b>Head to $ONGCHAINN</b><span>Go to songchainn.xyz and open the Join ZABAL Gamez page. Everything for the contest lives right there.</span></div></div>
         <div class="step"><div class="step-num">3</div><div class="step-b"><b>Download the beat</b><span>Grab the official ZABAL Gamez beat straight from that page.</span></div></div>
         <div class="step"><div class="step-num">4</div><div class="step-b"><b>Deliver your best verse and upload it</b><span>Lay your hottest verse on that beat, then upload it back onto the same ZABAL Gamez page. That is your entry.</span></div></div>
       </div>
       <div class="safe-note" style="border-color:var(--line); background:rgba(62,230,224,0.06)"><b style="color:var(--cyan)">Note:</b> the full step by step submission instructions are on songchainn.xyz, on the Join ZABAL Gamez page.</div>
       <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:18px">
-        <a class="cta-btn" data-cta="enter" style="flex:1; min-width:170px">Join on Songchainn &rarr;</a>
+        <a class="cta-btn" data-cta="enter" style="flex:1; min-width:170px">Join on $ONGCHAINN &rarr;</a>
         <a class="cta-btn ghost" data-cta="about" style="flex:1; min-width:170px">What is the Gamez</a>
       </div>
     </div>
@@ -465,20 +561,39 @@
 
   <div class="section-line"></div>
 
+  <!-- ================= ASK AI ================= -->
+  <section id="ask">
+    <div class="reveal">
+      <div class="eyebrow">Stuck on something?</div>
+      <h2>Let AI explain it</h2>
+      <p style="margin-bottom:8px">Any question you have, AI can answer it in the simplest English, any time. Open ChatGPT or any AI app, paste one of these, and read the answer back. Tap Copy, then paste it in.</p>
+    </div>
+    <div class="reveal">
+      <div class="faq-prompt"><p>Explain what a crypto wallet is like I am 10 years old, and tell me why I need one to get paid.</p><button class="copy-btn" type="button">Copy prompt</button></div>
+      <div class="faq-prompt"><p>Give me step by step how to create a Base App wallet on my phone, in very simple English.</p><button class="copy-btn" type="button">Copy prompt</button></div>
+      <div class="faq-prompt"><p>What are the top 5 rules to keep my crypto wallet safe? Keep it very simple.</p><button class="copy-btn" type="button">Copy prompt</button></div>
+      <div class="faq-prompt"><p>How do I sell my crypto for Zambian Kwacha using Binance P2P? Explain it step by step.</p><button class="copy-btn" type="button">Copy prompt</button></div>
+      <div class="faq-prompt"><p>I got paid in a token. What is it, is it safe, and how do I turn it into cash?</p><button class="copy-btn" type="button">Copy prompt</button></div>
+    </div>
+    <a class="cta-btn ghost reveal" href="https://chatgpt.com" target="_blank" rel="noopener" style="display:flex; margin-top:16px">Open ChatGPT &rarr;</a>
+  </section>
+
+  <div class="section-line"></div>
+
   <!-- ================= FINAL CTA ================= -->
   <section>
     <div class="final reveal">
       <div class="eyebrow" style="justify-content:center">July is live. Drop in.</div>
       <h2>Your seat is open</h2>
-      <p>You learned it. You get it. Now own your music on Songchainn and drop your verse. Entry is open right now, and N3M3SIS saved you a spot.</p>
+      <p>You learned it. You get it. Now own your music on $ONGCHAINN and drop your verse. Entry is open right now, and N3M3SIS saved you a spot.</p>
       <div style="display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:6px">
-        <a class="cta-btn" data-cta="songchainn">Ride into Songchainn <span aria-hidden="true">&#127940;</span></a>
+        <a class="cta-btn" data-cta="songchainn">Ride into $ONGCHAINN <span aria-hidden="true">&#127940;</span></a>
         <a class="cta-btn ghost" data-cta="about">What is the Gamez</a>
       </div>
       <div style="margin-top:16px"><a href="invite.html" class="mono" style="color:var(--off-dim); font-size:12px; letter-spacing:0.1em; text-decoration:underline">Read the invite from N3M3SIS &rarr;</a></div>
     </div>
     <footer>
-      Songchainn.xyz &middot; ZABAL Gamez &middot; The ZAO<br>
+      $ONGCHAINN &middot; ZABAL Gamez &middot; The ZAO<br>
       Built by N3M3SIS &middot; Respect the cypher
     </footer>
   </section>
@@ -498,7 +613,7 @@
   // ---- CONFIG: live links ----
   const CONFIG = {
     songchainnUrl: "https://songchainn.xyz",              // Join ZABAL Gamez + submit lives here
-    enterUrl:      "https://songchainn.xyz",              // the Join ZABAL Gamez page is on Songchainn
+    enterUrl:      "https://songchainn.xyz",              // the Join ZABAL Gamez page is on $ONGCHAINN
     aboutUrl:      "https://zabalgamez.com/enter.html",   // learn more about the ZABAL Gamez
     openPotUrl:    "https://poidh.xyz/base/bounty/1249"   // the ZABAL Gamez Open Pot (live prize)
   };
@@ -603,7 +718,7 @@
     else { openModal(fallbackMsg); }
   }
   const CTA_MAP = {
-    songchainn: [CONFIG.songchainnUrl, 'Songchainn opens soon. Follow N3M3SIS to catch the drop.'],
+    songchainn: [CONFIG.songchainnUrl, '$ONGCHAINN opens soon. Follow N3M3SIS to catch the drop.'],
     enter:      [CONFIG.enterUrl,      'The Join ZABAL Gamez page opens soon. Follow N3M3SIS for the go signal.'],
     about:      [CONFIG.aboutUrl,      'More on the ZABAL Gamez soon.'],
     openpot:    [CONFIG.openPotUrl,    'The Open Pot opens soon.']
@@ -613,6 +728,24 @@
       e.preventDefault();
       const m = CTA_MAP[el.dataset.cta] || [];
       route(m[0], m[1] || 'Opens soon.');
+    });
+  });
+
+  // copy-to-clipboard for FAQ prompts
+  function fallbackCopy(text, cb){
+    const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta); if(cb) cb();
+  }
+  document.querySelectorAll('.copy-btn').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const txt = btn.parentElement.querySelector('p').textContent.trim();
+      const done=()=>{ btn.textContent='Copied'; btn.classList.add('copied');
+        setTimeout(()=>{ btn.textContent='Copy prompt'; btn.classList.remove('copied'); }, 1700); };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done).catch(()=>fallbackCopy(txt, done));
+      } else { fallbackCopy(txt, done); }
     });
   });
 

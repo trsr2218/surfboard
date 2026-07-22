@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0B0710">
+<title>You're invited - N3M3SIS x Surfboard</title>
+<meta name="description" content="A personal invite from N3M3SIS. Grab a Surfboard, ride into web3, drop your verse, and play for the ZABAL Gamez prize pool.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root{
+    --ink:#0B0710; --panel:#150C1E; --panel-2:#1C1029;
+    --line: rgba(245,240,232,0.12);
+    --off:#F5F0E8; --off-dim: rgba(245,240,232,0.62); --off-faint: rgba(245,240,232,0.40);
+    --magenta:#FF2E8C; --gold:#FFB627; --cyan:#3EE6E0; --green:#5BF29A;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  html{ scroll-behavior:smooth; }
+  body{ background:var(--ink); color:var(--off); font-family:'Space Grotesk', system-ui, sans-serif;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden; line-height:1.5; }
+  .wrap{ max-width:640px; margin:0 auto; padding:0 22px 80px; position:relative; z-index:2; }
+
+  .glow{ position:fixed; border-radius:50%; filter:blur(90px); opacity:0.32; z-index:0; pointer-events:none; }
+  .glow-1{ width:300px; height:300px; background:var(--magenta); top:-70px; left:-120px; }
+  .glow-2{ width:260px; height:260px; background:var(--cyan); top:45%; right:-130px; }
+  .glow-3{ width:240px; height:240px; background:var(--gold); bottom:8%; left:-110px; }
+
+  header{ text-align:center; padding:60px 0 20px; position:relative; z-index:2; }
+  .eyebrow{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.32em; text-transform:uppercase;
+    color:var(--cyan); margin-bottom:16px; }
+  .eyebrow span{ color:var(--off-faint); }
+  h1{ font-family:'Anton', sans-serif; font-weight:400; text-transform:uppercase; font-size:clamp(46px, 13vw, 76px);
+    line-height:0.92; letter-spacing:0.01em;
+    background:linear-gradient(105deg, var(--off) 28%, var(--magenta) 64%, var(--gold) 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .sub{ margin:18px auto 0; max-width:460px; font-size:16px; color:var(--off-dim); line-height:1.6; }
+
+  .wave{ height:64px; display:flex; align-items:flex-end; justify-content:center; gap:4px; margin:28px 0 6px; position:relative; z-index:2; }
+  .bar{ width:5px; border-radius:3px; background:linear-gradient(180deg, var(--magenta), var(--cyan)); animation:pulse 1.1s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ transform:scaleY(0.3); opacity:0.55; } 50%{ transform:scaleY(1); opacity:1; } }
+
+  .tofrom{ display:flex; justify-content:space-between; border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:16px 0; margin:36px 0; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--off-dim); position:relative; z-index:2; }
+  .tofrom b{ color:var(--off); font-weight:500; }
+
+  section{ position:relative; z-index:2; margin-bottom:44px; }
+  .label{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.22em; text-transform:uppercase;
+    color:var(--magenta); margin-bottom:14px; }
+  h2{ font-family:'Anton', sans-serif; font-weight:400; text-transform:uppercase; font-size:26px; letter-spacing:0.01em;
+    color:var(--off); margin-bottom:12px; }
+  p{ color:var(--off-dim); font-size:15.5px; line-height:1.7; }
+
+  .letter{ border:1px solid var(--line); border-radius:14px; padding:26px 22px;
+    background:linear-gradient(160deg, var(--panel), var(--panel-2)); }
+  .letter p + p{ margin-top:14px; }
+  .letter .sign{ margin-top:18px; font-family:'JetBrains Mono', monospace; font-size:13px; color:var(--cyan); text-align:right; letter-spacing:0.06em; }
+  .letter b.hl{ color:var(--off); }
+
+  .why{ display:flex; flex-direction:column; gap:12px; margin-top:4px; }
+  .why-item{ display:flex; gap:13px; align-items:flex-start; }
+  .why-item .i{ font-size:22px; width:30px; text-align:center; flex-shrink:0; }
+  .why-item b{ display:block; color:var(--off); font-size:15.5px; }
+  .why-item span{ font-size:14px; color:var(--off-dim); }
+
+  .prize{ border:1px solid var(--line); border-radius:14px; padding:22px;
+    background:linear-gradient(155deg, rgba(255,46,140,0.10), rgba(62,230,224,0.07)); margin-top:18px; }
+  .prize-row{ display:flex; justify-content:space-between; align-items:baseline; padding:10px 0; border-bottom:1px dashed var(--line); }
+  .prize-row:last-child{ border-bottom:none; }
+  .prize-row .k{ font-family:'JetBrains Mono', monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase; color:var(--off-dim); }
+  .prize-row .v{ font-family:'Anton'; font-size:18px; text-transform:uppercase; color:var(--gold); }
+
+  .cta{ text-align:center; padding:40px 22px; border:1px solid var(--line); border-radius:14px;
+    background:radial-gradient(ellipse at 50% 0%, rgba(255,46,140,0.12), transparent 70%); }
+  .cta h2{ font-size:30px; }
+  .cta p{ margin:10px auto 24px; max-width:380px; }
+  .cta-btn{ display:inline-flex; align-items:center; gap:10px; justify-content:center;
+    font-family:'JetBrains Mono', monospace; font-size:14px; letter-spacing:0.12em; text-transform:uppercase;
+    padding:18px 32px; min-height:56px; border-radius:100px; font-weight:500; text-decoration:none;
+    background:linear-gradient(100deg, var(--magenta), var(--gold)); color:var(--ink);
+    box-shadow:0 10px 30px rgba(255,46,140,0.28); transition:transform 0.15s; }
+  .cta-btn:active{ transform:translateY(2px) scale(0.99); }
+
+  footer{ text-align:center; margin-top:40px; font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:0.18em; color:var(--off-faint); text-transform:uppercase; position:relative; z-index:2; line-height:2; }
+</style>
+</head>
+<body>
+
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+
+<div class="wrap">
+
+  <header>
+    <div class="eyebrow">A personal invite <span>&middot;</span> from N3M3SIS</div>
+    <h1>Grab a<br>Surfboard</h1>
+    <p class="sub">I built something for us. This is your invite to ride it in, before everyone else catches on.</p>
+  </header>
+
+  <div class="wave" id="wave"></div>
+
+  <div class="tofrom">
+    <div>TO: <b>The next wave of artists</b></div>
+    <div>FROM: <b>N3M3SIS</b></div>
+  </div>
+
+  <section>
+    <div class="label">The letter</div>
+    <div class="letter">
+      <p>If you are reading this, it is because I already see you. You make the sound, you put in the work, and somehow the value keeps landing in everyone's pocket but yours. I lived that too.</p>
+      <p>So I built <b class="hl">Surfboard</b>. It is the on-ramp I wish I had: a fun, two minute walkthrough that gets you into web3 with no tech background, no big words, no stress. You come out the other side owning your music, getting paid direct, and plugged into a real community.</p>
+      <p>This is not a someday thing. There is a Cypher running inside the ZABAL Gamez right now, and a real prize pool on the line. All you have to do is grab the board, drop your verse, and ride.</p>
+      <p class="sign">See you on the wave. N3M3SIS</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="label">Why ride it</div>
+    <h2>What is on the board</h2>
+    <div class="why">
+      <div class="why-item"><span class="i">&#127940;</span><span><b>Onboard in 2 minutes</b><span>Learn web3, set up your wallet, done. It is built to be easy and fun.</span></span></div>
+      <div class="why-item"><span class="i">&#127925;</span><span><b>Own your music on Songchainn</b><span>Upload, own it on-chain, get discovered, get paid direct.</span></span></div>
+      <div class="why-item"><span class="i">&#127911;</span><span><b>Drop your cypher verse</b><span>60 seconds of your best bars. That upload is your entry to the Cypher.</span></span></div>
+      <div class="why-item"><span class="i">&#127942;</span><span><b>Play for the ZABAL Gamez pool</b><span>Go bar for bar in the bracket and compete for the real prize.</span></span></div>
+    </div>
+
+    <div class="prize">
+      <div class="prize-row"><span class="k">Prize pool</span><span class="v">$500 USDC</span></div>
+      <div class="prize-row"><span class="k">Top 16 also get</span><span class="v">$ZABAL tokens</span></div>
+      <div class="prize-row"><span class="k">Finalists earn</span><span class="v">Respect + collectible</span></div>
+    </div>
+  </section>
+
+  <div class="cta">
+    <div class="label" style="justify-content:center; text-align:center">One verse. Everything to prove.</div>
+    <h2>Ride with me</h2>
+    <p>Tap in, take the two minute ride, and drop your verse. Your seat is already saved.</p>
+    <a href="index.html" class="cta-btn">Open Surfboard <span aria-hidden="true">&#127940;</span></a>
+  </div>
+
+  <footer>
+    Songchainn.xyz &middot; ZABAL Gamez &middot; The ZAO<br>
+    Built by N3M3SIS &middot; Respect the cypher
+  </footer>
+
+</div>
+
+<script>
+  const w=document.getElementById('wave');
+  for(let i=0;i<36;i++){
+    const b=document.createElement('div'); b.className='bar';
+    b.style.height=(12+Math.round(Math.sin(i*0.42)*26+30))+'px';
+    b.style.animationDelay=(i*0.05)+'s';
+    w.appendChild(b);
+  }
+</script>
+
+</body>
+</html>

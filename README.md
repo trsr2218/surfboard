@@ -21,12 +21,34 @@ with no technical background, then points them at the two opportunities on the t
 Open `index.html` in any browser. No build step, no dependencies. Fonts load from Google Fonts
 when online, with system font fallbacks offline.
 
-## Before launch (open items)
+## Go live: paste your links
 
-- Wire the **Onboard now** button (`#onboardBtn` in `index.html`) to the live wallet / Songchainn
-  connect flow. It is currently a placeholder.
-- Drop in the real **Songchainn upload** link and the ZABAL **/enter** link.
+Open `index.html`, find the `CONFIG` block near the top of the `<script>`, and fill in the URLs:
+
+```js
+const CONFIG = {
+  onboardUrl:   "",  // live wallet / Songchainn connect flow
+  songchainnUrl:"",  // upload your verse
+  enterUrl:     ""   // ZABAL Gamez entry
+};
+```
+
+Until `onboardUrl` is set, the "Onboard now" button shows a friendly "opens soon" modal instead of
+a dead link. Set it and the button opens the real flow. No other code changes needed.
+
+## Deploy (GitHub Pages)
+
+1. Repo Settings, Pages, Source: Deploy from a branch, Branch: `main` / root.
+2. Live at `https://trsr2218.github.io/surfboard/`.
+3. The social share meta and `og.png` already point at that URL. If you use a custom domain,
+   update the `og:url`, `twitter:image` and canonical URLs in both HTML files.
+
+Validate the share preview with the Facebook Sharing Debugger and X Card Validator after deploy.
+
+## Still to confirm before public launch
+
 - Add N3M3SIS real bio details and photo (current copy is role based and intentionally not fabricated).
+- Confirm the prize numbers and dates with the ZABAL Gamez organisers (the source page lists dates as TBD).
 
 ## Design
 

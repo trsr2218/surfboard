@@ -6,8 +6,27 @@
 <meta name="theme-color" content="#0B0710">
 <title>Surfboard - Catch the wave into web3</title>
 <meta name="description" content="Surfboard by N3M3SIS. The fun, 2-minute on-ramp that gets musicians onto web3, Songchainn, and the ZABAL Gamez.">
+<link rel="canonical" href="https://trsr2218.github.io/surfboard/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%84%3C/text%3E%3C/svg%3E">
+
+<!-- Open Graph / social share -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Surfboard">
+<meta property="og:title" content="Surfboard - Catch the wave into web3">
+<meta property="og:description" content="Your 2-minute on-ramp into web3. Own your music on Songchainn, drop your verse, and play the Cypher for the ZABAL Gamez prize pool. A build by N3M3SIS.">
+<meta property="og:url" content="https://trsr2218.github.io/surfboard/">
+<meta property="og:image" content="https://trsr2218.github.io/surfboard/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Surfboard - Catch the wave into web3">
+<meta name="twitter:description" content="Your 2-minute on-ramp into web3. Own your music, drop your verse, play the Cypher. A build by N3M3SIS.">
+<meta name="twitter:image" content="https://trsr2218.github.io/surfboard/og.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
   :root{
     --ink:#0B0710;
@@ -211,6 +230,26 @@
     section{ padding:70px 0; }
     .card{ padding:38px 34px 30px; }
   }
+
+  /* ---------- accessibility ---------- */
+  :focus-visible{ outline:2px solid var(--cyan); outline-offset:3px; border-radius:4px; }
+  .dot{ border:none; padding:0; cursor:pointer; }
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; scroll-behavior:auto !important; }
+    .reveal{ opacity:1 !important; transform:none !important; }
+  }
+
+  /* ---------- modal ---------- */
+  .modal{ position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+    padding:24px; background:rgba(5,3,8,0.72); backdrop-filter:blur(6px); }
+  .modal[hidden]{ display:none; }
+  .modal-card{ max-width:400px; width:100%; border:1px solid var(--line); border-radius:16px; padding:32px 26px;
+    text-align:center; background:linear-gradient(160deg, var(--panel), var(--panel-2));
+    box-shadow:0 24px 60px rgba(0,0,0,0.5); animation:pop 0.35s ease; }
+  .modal-card .m-emoji{ font-size:44px; }
+  .modal-card h3{ font-family:'Anton'; font-weight:400; text-transform:uppercase; font-size:24px; margin:12px 0 10px; color:var(--off); }
+  .modal-card p{ font-size:14.5px; margin-bottom:22px; }
+  .modal-card .cta-btn{ width:100%; }
 </style>
 </head>
 <body>
@@ -416,7 +455,23 @@
 
 </div>
 
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal-card">
+    <div class="m-emoji" aria-hidden="true">&#127940;</div>
+    <h3 id="modalTitle">Almost showtime</h3>
+    <p id="modalBody">Onboarding opens soon. Follow N3M3SIS to catch the drop and secure your spot in the Cypher.</p>
+    <button class="cta-btn" id="modalClose">Got it</button>
+  </div>
+</div>
+
 <script>
+  // ---- CONFIG: paste real links here to go live ----
+  const CONFIG = {
+    onboardUrl:   "",  // live wallet / Songchainn connect flow
+    songchainnUrl:"",  // upload your verse
+    enterUrl:     ""   // ZABAL Gamez entry
+  };
+
   // hero wave bars
   (function(){
     const w = document.getElementById('heroWave');
@@ -452,7 +507,7 @@
     const onboarded=document.getElementById('onboarded');
     let idx=0;
 
-    for(let i=0;i<cards;i++){ const d=document.createElement('div'); d.className='dot'; dotsWrap.appendChild(d); }
+    for(let i=0;i<cards;i++){ const d=document.createElement('button'); d.className='dot'; d.type='button'; d.setAttribute('aria-label','Go to wave '+(i+1)); dotsWrap.appendChild(d); }
     const dots=Array.from(dotsWrap.children);
 
     function render(){
@@ -487,10 +542,28 @@
     render();
   })();
 
-  // onboard button placeholder
-  document.getElementById('onboardBtn').addEventListener('click',(e)=>{
+  // ---- CTA routing + modal ----
+  const modal = document.getElementById('modal');
+  const modalBody = document.getElementById('modalBody');
+  let lastFocus = null;
+  function openModal(msg){
+    if(msg) modalBody.textContent = msg;
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.getElementById('modalClose').focus();
+  }
+  function closeModal(){ modal.hidden = true; if(lastFocus) lastFocus.focus(); }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !modal.hidden) closeModal(); });
+
+  function route(url, fallbackMsg){
+    if(url && url.trim()){ window.open(url, '_blank', 'noopener'); }
+    else { openModal(fallbackMsg); }
+  }
+  document.getElementById('onboardBtn').addEventListener('click', e=>{
     e.preventDefault();
-    alert('Wallet onboarding connects here. Swap this for the live Songchainn connect flow before launch.');
+    route(CONFIG.onboardUrl, 'Onboarding opens soon. Follow N3M3SIS to catch the drop and secure your spot in the Cypher.');
   });
 </script>
 

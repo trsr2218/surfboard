@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0B0710">
-<title>Surfboard - Catch the wave into web3</title>
+<title>Surfboard - Your on-ramp into web3</title>
 <meta name="description" content="Surfboard by N3M3SIS. The fun, 2-minute on-ramp that gets musicians onto web3, Songchainn, and the ZABAL Gamez.">
-<link rel="canonical" href="/">
+<link rel="canonical" href="https://board.diyama.online/">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -18,16 +18,16 @@
 <!-- Open Graph / social share -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Surfboard">
-<meta property="og:title" content="Surfboard - Catch the wave into web3">
+<meta property="og:title" content="Surfboard - Your on-ramp into web3">
 <meta property="og:description" content="Your 2-minute on-ramp into web3. Own your music on Songchainn, drop your verse, and play the Cypher for the ZABAL Gamez prize pool. A build by N3M3SIS.">
-<meta property="og:url" content="/">
-<meta property="og:image" content="og.png">
+<meta property="og:url" content="https://board.diyama.online/">
+<meta property="og:image" content="https://board.diyama.online/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Surfboard - Catch the wave into web3">
+<meta name="twitter:title" content="Surfboard - Your on-ramp into web3">
 <meta name="twitter:description" content="Your 2-minute on-ramp into web3. Own your music, drop your verse, play the Cypher. A build by N3M3SIS.">
-<meta name="twitter:image" content="og.png">
+<meta name="twitter:image" content="https://board.diyama.online/og.png">
 
 <link rel="stylesheet" href="fonts.css">
 <style>
@@ -135,8 +135,8 @@
   .dot{ width:26px; height:5px; border-radius:3px; background:var(--line); transition:background 0.3s, width 0.3s; }
   .dot.active{ background:var(--cyan); width:34px; }
   .dot.done{ background:var(--magenta); }
-  .deck{ position:relative; overflow:hidden; border-radius:var(--radius); }
-  .deck-track{ display:flex; transition:transform 0.4s cubic-bezier(.22,.61,.36,1); }
+  .deck{ position:relative; overflow:hidden; border-radius:var(--radius); transition:height 0.4s cubic-bezier(.22,.61,.36,1); }
+  .deck-track{ display:flex; align-items:flex-start; transition:transform 0.4s cubic-bezier(.22,.61,.36,1); }
   .card{ min-width:100%; padding:30px 24px 26px; border:1px solid var(--line); border-radius:var(--radius);
     background:linear-gradient(160deg, var(--panel), var(--panel-2)); }
   .card .kicker{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.2em; text-transform:uppercase;
@@ -272,9 +272,9 @@
     <img class="hero-logo" src="logo.png" alt="Surfboard, a build by N3M3SIS" width="130" height="130">
     <div class="hero-wave" id="heroWave"></div>
     <h1>Surf<br>board</h1>
-    <p class="hero-sub">Your 2 minute on-ramp into web3. No tech background. No stress. Just catch the wave, and ride it into a place where your music actually pays you.</p>
+    <p class="hero-sub">Your 2 minute on-ramp into web3. No tech background. No stress. Just take the ride into a place where your music actually pays you.</p>
     <div class="hero-cta">
-      <a href="#learn" class="cta-btn">Catch the wave <span aria-hidden="true">&#127940;</span></a>
+      <a href="#learn" class="cta-btn">Get onboarded <span aria-hidden="true">&#127940;</span></a>
       <div class="built-by">A build by <b>N3M3SIS</b></div>
     </div>
     <div class="scroll-hint">Scroll to start</div>
@@ -283,7 +283,7 @@
   <!-- ================= LEARN DECK ================= -->
   <section id="learn">
     <div class="deck-head reveal">
-      <div class="eyebrow">The ride &middot; 5 quick waves</div>
+      <div class="eyebrow">The ride &middot; 5 quick steps</div>
       <h2>Web3 in 2 minutes</h2>
       <p>Tap through. By the end you will actually get it, and you will be onboarded.</p>
     </div>
@@ -295,16 +295,16 @@
 
         <!-- WAVE 1 -->
         <div class="card">
-          <div class="kicker">Wave 01 / Why now</div>
+          <div class="kicker">Step 01 / Why now</div>
           <div class="big-emoji">&#127754;</div>
-          <h2>The wave is here</h2>
+          <h2>Your moment is here</h2>
           <p>For years the music game was built so other people ate first. Labels, platforms, middlemen. You made the sound, they kept the bag.</p>
           <p style="margin-top:12px">Web3 flips that. It is a new way to put your music online where <b style="color:var(--off)">you own it, you get paid direct, and nobody can quietly cut you out.</b> Africa is early, and early is where the real upside lives.</p>
         </div>
 
         <!-- WAVE 2 -->
         <div class="card">
-          <div class="kicker">Wave 02 / In plain words</div>
+          <div class="kicker">Step 02 / In plain words</div>
           <div class="big-emoji">&#128279;</div>
           <h2>What "on-chain" means</h2>
           <p>A blockchain is just a public notebook that everyone can see and nobody can secretly erase or edit. Once your name is next to your song in that notebook, it is proof, forever.</p>
@@ -313,7 +313,7 @@
 
         <!-- WAVE 3 (BENEFITS) -->
         <div class="card">
-          <div class="kicker">Wave 03 / The come up</div>
+          <div class="kicker">Step 03 / The come up</div>
           <div class="big-emoji">&#128176;</div>
           <h2>What you actually gain</h2>
           <ul class="benefit-list">
@@ -328,7 +328,7 @@
 
         <!-- WAVE 4 (RISKS) -->
         <div class="card">
-          <div class="kicker">Wave 04 / Keep it real</div>
+          <div class="kicker">Step 04 / Keep it real</div>
           <div class="big-emoji">&#128737;</div>
           <h2>Know the risks</h2>
           <p style="margin-bottom:14px">The upside is real, but so is being smart. Quick truths:</p>
@@ -343,7 +343,7 @@
 
         <!-- WAVE 5 (WALLET) -->
         <div class="card">
-          <div class="kicker">Wave 05 / Your key</div>
+          <div class="kicker">Step 05 / Your key</div>
           <div class="big-emoji">&#127911;</div>
           <h2>Your wallet is your backstage pass</h2>
           <p>A wallet is your ID, your bank, and your all-access pass rolled into one. It holds your keys, it receives your money, and it is how you sign in everywhere in web3.</p>
@@ -355,7 +355,7 @@
 
     <div class="deck-nav reveal" id="deckNav">
       <button class="navbtn" id="backBtn" disabled>Back</button>
-      <button class="navbtn next" id="nextBtn">Next wave</button>
+      <button class="navbtn next" id="nextBtn">Next</button>
     </div>
 
     <div class="onboarded" id="onboarded" style="margin-top:22px">
@@ -375,15 +375,22 @@
         <img class="nem-avatar" src="logo.png" alt="N3M3SIS" width="64" height="64" style="object-fit:cover">
         <div>
           <h2 style="margin-bottom:4px">N3M3SIS</h2>
-          <div class="mono" style="font-size:12px; color:var(--off-dim); letter-spacing:0.1em">Caryn Thompson &middot; Lusaka, Zambia</div>
+          <div class="mono" style="font-size:12px; color:var(--off-dim); letter-spacing:0.1em">NemesisVsLadyryn &middot; Lusaka, Zambia</div>
         </div>
       </div>
-      <p>N3M3SIS is Caryn Thompson, a rapper, singer and poet out of Lusaka, Zambia. One artist, two names. Nemesis is the side that tries everything and takes the shot. Ladyryn is the soul, the poet, the calm. Her debut album SYNERGY put both on the map, right inside a rising wave of Zambian and Nigerian talent moving Afrobeats, R&B, rap and folk.</p>
-      <p>She has lived the part where you make something real and watch the value land in everyone's pocket but yours. So she built Surfboard: a way for the artists in her circle and across the continent to walk into web3 without being coders, traders, or born rich. The play is simple. Bring her people in, and make sure they win where they used to get left out.</p>
+      <p>N3M3SIS, formally known as NemesisVsLadyryn, is a rapper, singer, songwriter and composer out of Lusaka, Zambia. One artist, two names. Nemesis is the side that tries everything and takes the shot. Ladyryn is the soul, the poet, the calm. Her debut album SYNERGY put both on the map, right inside a rising scene of Zambian and Nigerian talent moving Afrobeats, R&B, rap and folk.</p>
+      <p>She is a builder, a founder, and an onchain geek living across web2 and web3, deep in all things crypto, NFTs and art. She has lived the part where you make something real and watch the value land in everyone's pocket but yours. So she built Surfboard: a way for the artists in her circle and across the continent to walk into web3 without being coders, traders, or born rich. The play is simple. Bring her people in, and make sure they win where they used to get left out.</p>
       <div class="quote">Two names, one artist. Nemesis takes the shot, Ladyryn keeps the soul. SYNERGY was just the opening set.</div>
       <div class="chip-row" style="margin-top:16px">
+        <span class="chip">Rapper</span>
+        <span class="chip">Builder</span>
+        <span class="chip">Founder</span>
+        <span class="chip">Songwriter</span>
+        <span class="chip">Onchain artist</span>
+      </div>
+      <div class="chip-row" style="margin-top:10px">
         <a class="chip" style="text-decoration:none; color:var(--cyan)" href="https://open.spotify.com/artist/63vJxHnaFC3yyfxYv7fsgC" target="_blank" rel="noopener">Listen on Spotify &rarr;</a>
-        <span class="chip">@NEMESISvsLadyryn</span>
+        <span class="chip">@NemesisVsLadyryn</span>
         <span class="chip">Album: SYNERGY</span>
       </div>
     </div>
@@ -523,22 +530,28 @@
 
   // learn deck
   (function(){
+    const deck=document.getElementById('deck');
     const track=document.getElementById('deckTrack');
-    const cards=track.children.length;
+    const cardEls=Array.from(track.children);
+    const cards=cardEls.length;
     const dotsWrap=document.getElementById('deckDots');
     const back=document.getElementById('backBtn');
     const next=document.getElementById('nextBtn');
     const onboarded=document.getElementById('onboarded');
     let idx=0;
 
-    for(let i=0;i<cards;i++){ const d=document.createElement('button'); d.className='dot'; d.type='button'; d.setAttribute('aria-label','Go to wave '+(i+1)); dotsWrap.appendChild(d); }
+    for(let i=0;i<cards;i++){ const d=document.createElement('button'); d.className='dot'; d.type='button'; d.setAttribute('aria-label','Go to step '+(i+1)); dotsWrap.appendChild(d); }
     const dots=Array.from(dotsWrap.children);
+
+    // size the deck to the active card so the buttons sit right under the text
+    function sizeDeck(){ deck.style.height = cardEls[idx].offsetHeight + 'px'; }
 
     function render(){
       track.style.transform='translateX(-'+(idx*100)+'%)';
       dots.forEach((d,i)=>{ d.className='dot'+(i===idx?' active':(i<idx?' done':'')); });
       back.disabled = idx===0;
-      next.textContent = idx===cards-1 ? 'I got it' : 'Next wave';
+      next.textContent = idx===cards-1 ? 'I got it' : 'Next';
+      sizeDeck();
     }
     function finish(){
       onboarded.classList.add('show');
@@ -553,7 +566,6 @@
 
     // swipe
     let x0=null;
-    const deck=document.getElementById('deck');
     deck.addEventListener('touchstart',e=>{ x0=e.touches[0].clientX; },{passive:true});
     deck.addEventListener('touchend',e=>{
       if(x0===null) return;
@@ -564,6 +576,11 @@
     },{passive:true});
 
     render();
+    // recompute on resize and once fonts settle (text reflow changes height)
+    let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(sizeDeck,120); });
+    window.addEventListener('load', sizeDeck);
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(sizeDeck); }
+    setTimeout(sizeDeck, 400);
   })();
 
   // ---- CTA routing + modal ----

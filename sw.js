@@ -1,11 +1,13 @@
 /* Surfboard service worker - offline-first caching */
-const CACHE = 'surfboard-v1';
+const CACHE = 'surfboard-v2';
 const ASSETS = [
   './',
   './index.html',
   './invite.html',
   './fonts.css',
   './og.png',
+  './logo.png',
+  './favicon.png',
   './icon-192.png',
   './icon-512.png',
   './apple-touch-icon.png',

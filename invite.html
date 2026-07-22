@@ -188,8 +188,12 @@
     b.style.animationDelay=(i*0.05)+'s';
     w.appendChild(b);
   }
-  if('serviceWorker' in navigator && location.protocol.startsWith('http')){
-    window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
+  // Always serve the freshest version: remove any old service worker + caches, and do not register one.
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(r){ r.unregister(); }); }).catch(function(){});
+  }
+  if(window.caches && caches.keys){
+    caches.keys().then(function(keys){ keys.forEach(function(k){ caches.delete(k); }); }).catch(function(){});
   }
 </script>
 

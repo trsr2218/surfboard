@@ -659,7 +659,7 @@
     const dots=Array.from(dotsWrap.children);
 
     // size the deck to the active card so the buttons sit right under the text
-    function sizeDeck(){ deck.style.height = cardEls[idx].offsetHeight + 'px'; }
+    function sizeDeck(){ const h = cardEls[idx].offsetHeight; if(h) deck.style.height = h + 'px'; }
 
     function render(){
       track.style.transform='translateX(-'+(idx*100)+'%)';
@@ -691,7 +691,11 @@
     },{passive:true});
 
     render();
-    // recompute on resize and once fonts settle (text reflow changes height)
+    // keep the deck glued to the active card even as content reflows (fonts, images, rotation)
+    if(window.ResizeObserver){
+      const ro = new ResizeObserver(()=>{ requestAnimationFrame(sizeDeck); });
+      cardEls.forEach(c=>ro.observe(c));
+    }
     let rt; window.addEventListener('resize',()=>{ clearTimeout(rt); rt=setTimeout(sizeDeck,120); });
     window.addEventListener('load', sizeDeck);
     if(document.fonts && document.fonts.ready){ document.fonts.ready.then(sizeDeck); }

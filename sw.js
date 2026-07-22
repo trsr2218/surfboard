@@ -1,5 +1,5 @@
 /* Surfboard service worker - offline-first caching */
-const CACHE = 'surfboard-v5';
+const CACHE = 'surfboard-v6';
 const ASSETS = [
   './',
   './index.html',

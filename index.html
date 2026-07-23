@@ -262,6 +262,52 @@
   .wallet-card ol{ margin:0 0 0 18px; padding:0; }
   .wallet-card ol li{ font-size:14px; color:var(--off-dim); line-height:1.7; padding-left:4px; }
   .wallet-card .wc-text{ font-size:14px; color:var(--off-dim); line-height:1.7; }
+  .label{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--cyan); }
+
+  /* ---------- web2 vs web3 ---------- */
+  .vs-list{ display:flex; flex-direction:column; gap:12px; margin-top:20px; }
+  .vs-item{ border:1px solid var(--line); border-radius:12px; background:rgba(21,12,30,0.6); padding:14px 16px; }
+  .vs-q{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:10px; }
+  .vs-pair{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .vs-cell{ font-size:13.5px; line-height:1.6; color:var(--off-faint); }
+  .vs-cell .vtag{ display:inline-block; font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.15em;
+    text-transform:uppercase; padding:3px 9px; border-radius:100px; border:1px solid var(--line); margin-bottom:8px; }
+  .vs-cell.new{ color:var(--off-dim); }
+  .vs-cell.new .vtag{ color:var(--cyan); border-color:rgba(62,230,224,0.4); background:rgba(62,230,224,0.07); }
+  @media (max-width:520px){ .vs-pair{ grid-template-columns:1fr; } }
+
+  /* ---------- lingo game ---------- */
+  .term-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  @media (max-width:520px){ .term-grid{ grid-template-columns:1fr; } }
+  .term{ text-align:left; border:1px solid var(--line); border-radius:12px; background:rgba(21,12,30,0.6);
+    padding:13px 15px; cursor:pointer; color:var(--off); font-family:inherit; }
+  .term .t-word{ font-weight:700; font-size:15px; display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .term .t-word span{ color:var(--cyan); font-weight:400; font-size:18px; transition:transform 0.25s ease; }
+  .term .t-def{ display:none; margin-top:8px; font-size:13.5px; color:var(--off-dim); line-height:1.6; }
+  .term.open{ border-color:rgba(62,230,224,0.45); }
+  .term.open .t-def{ display:block; }
+  .term.open .t-word span{ transform:rotate(45deg); }
+  .quiz-box{ border:1px solid var(--line); border-radius:var(--radius); background:rgba(21,12,30,0.6); padding:22px 20px; }
+  .quiz-box.earned{ border-color:rgba(255,182,39,0.5);
+    background:linear-gradient(160deg, rgba(255,182,39,0.10), rgba(255,46,140,0.07)); }
+  .q-meta{ display:flex; justify-content:space-between; font-family:'JetBrains Mono', monospace; font-size:11px;
+    letter-spacing:0.12em; text-transform:uppercase; color:var(--off-faint); margin-bottom:12px; }
+  .q-text{ font-size:16.5px; font-weight:700; color:var(--off); margin-bottom:14px; line-height:1.45; }
+  .q-opt{ display:block; width:100%; text-align:left; font-family:inherit; font-size:14.5px; color:var(--off-dim);
+    background:rgba(11,7,16,0.5); border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+    margin-bottom:9px; cursor:pointer; transition:border-color 0.15s ease; line-height:1.5; }
+  .q-opt:disabled{ cursor:default; }
+  .q-opt.correct{ border-color:var(--green); color:var(--green); background:rgba(91,242,154,0.08); }
+  .q-opt.wrong{ border-color:var(--magenta); color:var(--magenta); background:rgba(255,46,140,0.07); }
+  .respect{ text-align:center; padding:8px 0 2px; }
+  .respect .r-medal{ font-size:46px; line-height:1; }
+  .respect h3{ font-family:'Anton', sans-serif; font-weight:400; font-size:34px; text-transform:uppercase; letter-spacing:0.02em;
+    background:linear-gradient(105deg, var(--gold), var(--magenta)); -webkit-background-clip:text; background-clip:text;
+    color:transparent; margin:10px 0 6px; }
+  .respect .r-sub{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.22em;
+    text-transform:uppercase; color:var(--off-dim); }
 
   /* ---------- faq / ask ai ---------- */
   .faq-prompt{ border:1px solid var(--line); border-radius:12px; padding:16px 16px 14px; background:rgba(21,12,30,0.6);
@@ -403,6 +449,54 @@
 
   <div class="section-line"></div>
 
+  <!-- ================= WEB2 VS WEB3 ================= -->
+  <section id="vs">
+    <div class="reveal">
+      <div class="eyebrow">Old internet vs new internet</div>
+      <h2>Web2 vs Web3</h2>
+      <p>Web2 is the internet you already use every day: Spotify, YouTube, Instagram. It works, but you are renting space on platforms that belong to someone else. Web3 is the internet where you own your space. Same phone, same you, new rules.</p>
+    </div>
+    <div class="vs-list reveal">
+      <div class="vs-item">
+        <div class="vs-q">Your music</div>
+        <div class="vs-pair">
+          <div class="vs-cell"><span class="vtag">Web2</span><br>The platform hosts it and controls it. If your account goes, your catalogue goes with it.</div>
+          <div class="vs-cell new"><span class="vtag">Web3</span><br>You own it onchain, provable forever. Nobody can quietly take it or claim it.</div>
+        </div>
+      </div>
+      <div class="vs-item">
+        <div class="vs-q">Getting paid</div>
+        <div class="vs-pair">
+          <div class="vs-cell"><span class="vtag">Web2</span><br>Cents per stream, paid months later, after everyone else takes their cut.</div>
+          <div class="vs-cell new"><span class="vtag">Web3</span><br>Fans pay you direct. The money lands in your wallet in seconds.</div>
+        </div>
+      </div>
+      <div class="vs-item">
+        <div class="vs-q">Your account</div>
+        <div class="vs-pair">
+          <div class="vs-cell"><span class="vtag">Web2</span><br>An email and password the company controls. They can ban or delete you any day.</div>
+          <div class="vs-cell new"><span class="vtag">Web3</span><br>Your wallet. You hold the key, so nobody can lock you out.</div>
+        </div>
+      </div>
+      <div class="vs-item">
+        <div class="vs-q">Your fans</div>
+        <div class="vs-pair">
+          <div class="vs-cell"><span class="vtag">Web2</span><br>Locked inside one app, and the algorithm decides who sees you.</div>
+          <div class="vs-cell new"><span class="vtag">Web3</span><br>They follow you across every platform and can back you with real money.</div>
+        </div>
+      </div>
+      <div class="vs-item">
+        <div class="vs-q">The rules</div>
+        <div class="vs-pair">
+          <div class="vs-cell"><span class="vtag">Web2</span><br>Written by the company, changed whenever it suits them.</div>
+          <div class="vs-cell new"><span class="vtag">Web3</span><br>Written in code everyone can read. Same rules for everybody.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-line"></div>
+
   <!-- ================= WALLET LESSON ================= -->
   <section id="wallet">
     <div class="lesson reveal">
@@ -487,6 +581,21 @@
 
       <a class="cta-btn ghost" href="https://x.com" target="_blank" rel="noopener" style="display:flex; margin-top:18px">Join X &rarr;</a>
     </div>
+  </section>
+
+  <div class="section-line"></div>
+
+  <!-- ================= LINGO GAME ================= -->
+  <section id="lingo">
+    <div class="reveal">
+      <div class="eyebrow gold">The lingo game</div>
+      <h2>Talk that talk</h2>
+      <p>Web3 has its own slang, and knowing it is how the community spots real ones. Tap each word to learn it, then pass the test to earn <b style="color:var(--gold)">N3M Respect</b>, your badge that shows you speak web3.</p>
+    </div>
+    <div class="label reveal" style="margin:24px 0 12px">Learn the 12 words</div>
+    <div class="term-grid reveal" id="termGrid"></div>
+    <div class="label reveal" style="margin:28px 0 12px; color:var(--gold)">Earn your N3M Respect</div>
+    <div class="quiz-box reveal" id="quizBox"></div>
   </section>
 
   <div class="section-line"></div>
@@ -808,8 +917,121 @@
     });
   });
 
+  // ---- web3 lingo game + N3M Respect badge ----
+  (function(){
+    const TERMS=[
+      {t:'Web3', d:'The new internet where you own your stuff. Your music, your money, your name. No company in the middle.'},
+      {t:'Blockchain', d:'A public notebook that everyone can read and nobody can secretly edit. It is where the records live.'},
+      {t:'Onchain', d:'Written into the blockchain forever. If your song is onchain, the whole world can check that it is yours.'},
+      {t:'Wallet', d:'Your ID, bank and login in one app. It holds your money and signs you in everywhere in web3.'},
+      {t:'Wallet address', d:'Your account number for the internet of money. A long code that starts with 0x. Share it to get paid.'},
+      {t:'Seed phrase', d:'The 12 secret words that ARE your wallet. Whoever has them has your money. Never share them with anyone, ever.'},
+      {t:'Token', d:'Digital money that lives onchain. You can earn it, send it, or swap it into Kwacha.'},
+      {t:'NFT', d:'Onchain proof that you own one specific thing, like your track or your cover art.'},
+      {t:'Smart contract', d:'A deal written in code that pays out by itself. Nobody can dodge it or change it later.'},
+      {t:'Gas', d:'A small network fee you pay when you do something onchain. On Base it costs less than a text.'},
+      {t:'Mint', d:'To publish something onchain for the first time. Mint a song and its ownership record is born.'},
+      {t:'DYOR', d:'Do Your Own Research. Check everything yourself before you put in money. The golden rule of web3.'}
+    ];
+    const QUIZ=[
+      {q:'Someone DMs you saying they are support and they need your seed phrase to fix your wallet. What do they really want?',
+       o:['To help me recover my account','To rob me. No real person or company ever asks for it','To check that I am human'], a:1},
+      {q:'What is a blockchain?',
+       o:['A public notebook everyone can read and nobody can secretly edit','A company that stores crypto passwords','An app for downloading music'], a:0},
+      {q:'Your wallet address is...',
+       o:['A secret code I must never show anyone','The 12 words behind my wallet','The 0x code I share so people can pay me'], a:2},
+      {q:'Minting a song means...',
+       o:['Publishing it onchain for the first time','Deleting it from the internet','Uploading it to Spotify'], a:0},
+      {q:'What is gas?',
+       o:['A fee scammers charge new users','A small network fee for doing things onchain','The cut a label takes from your pay'], a:1},
+      {q:'A smart contract is...',
+       o:['A lawyer who works online','A paper contract with a smart name','A deal written in code that pays out automatically'], a:2},
+      {q:'Your track is onchain. That means...',
+       o:['A label secretly owns it','Proof that you own it is public and permanent','The platform can quietly edit it'], a:1},
+      {q:'DYOR stands for...',
+       o:['Do Your Own Research before you put in money','Deposit Your Own Rewards','Download Your Official Records'], a:0}
+    ];
+    const PASS=7, RESPECT_KEY='sb_n3m_respect';
+    const grid=document.getElementById('termGrid');
+    const box=document.getElementById('quizBox');
+    if(!grid || !box) return;
+    let qi=0, score=0;
+
+    TERMS.forEach(function(term){
+      const b=document.createElement('button'); b.type='button'; b.className='term';
+      b.innerHTML='<div class="t-word">'+term.t+'<span aria-hidden="true">+</span></div><div class="t-def">'+term.d+'</div>';
+      b.addEventListener('click', function(){ b.classList.toggle('open'); });
+      grid.appendChild(b);
+    });
+
+    function hasRespect(){ try{ return !!localStorage.getItem(RESPECT_KEY); }catch(e){ return false; } }
+
+    function startScreen(){
+      box.classList.remove('earned');
+      box.innerHTML='<div class="q-text">Think you speak web3?</div>'+
+        '<p style="font-size:14px; margin-bottom:16px">'+QUIZ.length+' quick questions on the words above. Score '+PASS+' or more and you earn N3M Respect.</p>'+
+        '<button class="cta-btn" id="quizStart" type="button" style="width:100%">Start the test</button>';
+      document.getElementById('quizStart').addEventListener('click', function(){ qi=0; score=0; track('lingo_start'); renderQ(); });
+    }
+    function renderQ(){
+      const q=QUIZ[qi];
+      box.innerHTML='<div class="q-meta"><span>Question '+(qi+1)+' / '+QUIZ.length+'</span><span>Score '+score+'</span></div>'+
+        '<div class="q-text">'+q.q+'</div>'+
+        q.o.map(function(o,i){ return '<button type="button" class="q-opt" data-i="'+i+'">'+o+'</button>'; }).join('');
+      box.querySelectorAll('.q-opt').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          const i=+btn.dataset.i;
+          box.querySelectorAll('.q-opt').forEach(function(b){ b.disabled=true; });
+          const right = i===q.a;
+          if(right){ btn.classList.add('correct'); score++; }
+          else{ btn.classList.add('wrong'); box.querySelector('[data-i="'+q.a+'"]').classList.add('correct'); }
+          setTimeout(function(){ qi++; if(qi<QUIZ.length){ renderQ(); } else { finishQuiz(); } }, right?650:1500);
+        });
+      });
+    }
+    function finishQuiz(){
+      const pass=score>=PASS;
+      track('lingo_quiz', {score:score, pass:pass});
+      if(pass){
+        try{ localStorage.setItem(RESPECT_KEY, new Date().toISOString()); }catch(e){}
+        track('n3m_respect', null, true);
+        showBadge();
+      } else {
+        box.innerHTML='<div class="q-text">'+score+' out of '+QUIZ.length+'. So close.</div>'+
+          '<p style="font-size:14px; margin-bottom:16px">Study the words above one more time, then run it back. N3M Respect is waiting for you.</p>'+
+          '<button class="cta-btn ghost" id="quizRetry" type="button" style="width:100%">Run it back</button>';
+        document.getElementById('quizRetry').addEventListener('click', function(){ qi=0; score=0; renderQ(); });
+      }
+    }
+    function showBadge(){
+      box.classList.add('earned');
+      box.innerHTML='<div class="respect">'+
+        '<div class="r-medal" aria-hidden="true">&#127941;</div>'+
+        '<h3>N3M Respect</h3>'+
+        '<div class="r-sub">Certified web3 lingo literate</div>'+
+        '<p style="margin-top:12px; font-size:14px">You know your onchain from your offchain and your address from your seed phrase. Screenshot this badge and post it. Real ones will know.</p>'+
+        '<button class="cta-btn" id="respectShare" type="button" style="width:100%; margin-top:18px">Share your Respect</button>'+
+        '<button class="cta-btn ghost" id="respectRetake" type="button" style="width:100%; margin-top:10px">Run the test again</button>'+
+        '</div>';
+      document.getElementById('respectShare').addEventListener('click', function(){
+        track('respect_share');
+        const msg='I just earned N3M RESPECT on Surfboard. Certified web3 lingo literate. Come get yours: https://surfboard.diyama.online';
+        if(navigator.share){ navigator.share({text:msg}).catch(function(){}); }
+        else{
+          const btn=document.getElementById('respectShare');
+          const done=function(){ btn.textContent='Copied, go paste it'; setTimeout(function(){ btn.textContent='Share your Respect'; },1800); };
+          if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(msg).then(done).catch(function(){ fallbackCopy(msg, done); }); }
+          else{ fallbackCopy(msg, done); }
+        }
+      });
+      document.getElementById('respectRetake').addEventListener('click', function(){ qi=0; score=0; box.classList.remove('earned'); renderQ(); });
+    }
+
+    if(hasRespect()){ showBadge(); } else { startScreen(); }
+  })();
+
   // record when the big lessons actually get seen (once per device)
-  [['wallet','wallet_viewed'], ['jointhex','x_lesson_viewed']].forEach(function(pair){
+  [['wallet','wallet_viewed'], ['jointhex','x_lesson_viewed'], ['lingo','lingo_viewed']].forEach(function(pair){
     const el = document.getElementById(pair[0]);
     if(!el) return;
     const ob = new IntersectionObserver(function(es){

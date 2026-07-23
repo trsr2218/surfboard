@@ -309,6 +309,14 @@
   .respect .r-sub{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.22em;
     text-transform:uppercase; color:var(--off-dim); }
 
+  /* ---------- celebration ribbons ---------- */
+  .ribbon{ position:fixed; top:-24px; border-radius:2px; z-index:200; pointer-events:none;
+    animation:ribbon-fall linear forwards; }
+  @keyframes ribbon-fall{
+    from{ transform:translateY(0) translateX(0) rotate(0deg); opacity:1; }
+    to{ transform:translateY(110vh) translateX(var(--dx)) rotate(var(--rot)); opacity:0.85; }
+  }
+
   /* ---------- faq / ask ai ---------- */
   .faq-prompt{ border:1px solid var(--line); border-radius:12px; padding:16px 16px 14px; background:rgba(21,12,30,0.6);
     margin-top:12px; display:flex; flex-direction:column; gap:12px; align-items:flex-start; }
@@ -442,7 +450,7 @@
 
     <div class="onboarded" id="onboarded" style="margin-top:22px">
       <div class="check">&#127940;</div>
-      <h2>You just onboarded</h2>
+      <h2>You are one step in. Let's go!</h2>
       <p style="margin:8px auto 0; max-width:360px">That is the whole idea of web3. Now here is where you take it, and what is on the line.</p>
     </div>
   </section>
@@ -829,9 +837,28 @@
       next.textContent = idx===cards-1 ? 'I got it' : 'Next';
       sizeDeck();
     }
+    function celebrate(){
+      if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const colors=['#FF2E8C','#FFB627','#3EE6E0','#5BF29A','#F5F0E8'];
+      for(let i=0;i<90;i++){
+        const p=document.createElement('div');
+        p.className='ribbon';
+        p.style.left=(Math.random()*100)+'vw';
+        p.style.background=colors[i%colors.length];
+        const w=5+Math.random()*6;
+        p.style.width=w+'px'; p.style.height=(w*2.2)+'px';
+        p.style.setProperty('--dx',(Math.random()*160-80)+'px');
+        p.style.setProperty('--rot',(Math.random()*900+360)+'deg');
+        p.style.animationDuration=(2.4+Math.random()*1.6)+'s';
+        p.style.animationDelay=(Math.random()*0.35)+'s';
+        document.body.appendChild(p);
+        setTimeout(function(){ p.remove(); }, 4800);
+      }
+    }
     function finish(){
       track('deck_complete', null, true);
       maybeOnboarded();
+      celebrate();
       onboarded.classList.add('show');
       onboarded.scrollIntoView({behavior:'smooth', block:'center'});
     }

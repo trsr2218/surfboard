@@ -1,7 +1,7 @@
 {
   "name": "Surfboard",
   "short_name": "Surfboard",
-  "description": "Your 2-minute on-ramp into web3. Own your music, drop your verse, play the Cypher. A build by N3M3SIS.",
+  "description": "The pro onboarding for anyone getting onchain. 8 lessons, hands-on exercises, a wallet you understand. A build by N3M3SIS.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

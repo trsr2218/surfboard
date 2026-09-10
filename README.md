@@ -56,11 +56,33 @@ All stored on-device in localStorage, no backend needed:
 - **The Guardian** - no raw errors, ever. JS errors and connection drops show a polite
   overlay with a countdown, rotating tips and a feedback box.
 
+## Device-aware layout
+
+A tiny inline script in the head sets `data-device` on `<html>` before first paint:
+`mobile` (phones), `tablet` (iPad, Android tablets), or `desktop` (mouse and keyboard).
+Phones and tablets get the app layout: glass app bar, bottom tab bar, bottom sheets.
+Real desktops at 1024px and wider get the desktop shell: a fixed left sidebar (brand, nav,
+sub links, start button), a centered 720px column with a sticky column title, and, from
+1340px, a right rail with the live progress widget, quick links and the N3M3SIS card.
+A desktop window narrower than 1024px falls back to the app layout.
+
+## Auto update, no cache clearing
+
+There is no service worker. `index.html` and `version.json` are served with
+`no-store` (see `vercel.json`). Every build stamps a version into the page and writes
+the same value to `version.json`. The page checks that file (with a cache buster) on
+load, on focus, when the connection returns, and every 3 minutes. When a newer build is
+live it reloads silently the next time the tab is hidden, or shows a "Surfboard just got
+an update, Refresh" pill while the tab is in use. To ship an update: change the version
+string in `version.json` and the `SB_VERSION` constant in `index.html` together
+(the build script does both).
+
 ## Storage keys
 
 `sb_course` (lesson progress, path, certificate id, exercise state), `sb_bio`,
 `sb_profile`, `sb_n3m_points`, `sb_notifs`, `sb_dms`, `sb_reward`, `sb_feedback`,
 `sb_milestones` (once-per-device analytics events), `sb_n3m_respect` (lingo badge).
+The course engine, the exercises and the desktop shell all read the same keys.
 
 ## Run
 

@@ -33,6 +33,26 @@
 <script>window.va = window.va || function(){ (window.vaq = window.vaq || []).push(arguments); };</script>
 <script defer src="/_vercel/insights/script.js"></script>
 
+<script>
+  // Device detection, before first paint. Phones and tablets get the app layout, real desktops get the desktop shell.
+  (function(){
+    function detect(){
+      var ua = navigator.userAgent || "";
+      var coarse = !!(window.matchMedia && matchMedia("(pointer:coarse)").matches);
+      var touch = coarse || (navigator.maxTouchPoints||0) > 0;
+      var iPadOS = /Macintosh/.test(ua) && (navigator.maxTouchPoints||0) > 1;
+      var phone = /Android.*Mobile|iPhone|iPod|Windows Phone|Mobi/i.test(ua) && !/iPad/i.test(ua);
+      var tablet = /iPad|Tablet|Android(?!.*Mobile)|Silk/i.test(ua) || iPadOS;
+      var d = phone ? "mobile" : (tablet ? "tablet" : ((coarse && window.innerWidth < 1024) ? "mobile" : "desktop"));
+      var h = document.documentElement;
+      h.setAttribute("data-device", d);
+      h.classList.toggle("is-touch", touch);
+      window.sbDevice = d;
+    }
+    detect();
+    var t; window.addEventListener("resize", function(){ clearTimeout(t); t = setTimeout(detect, 150); });
+  })();
+</script>
 <link rel="stylesheet" href="fonts.css">
 <style>
 
@@ -1018,6 +1038,129 @@
   }
   @media (prefers-reduced-motion: reduce){ body::after{ animation:none; } .glow, .hero-logo, .cert::after{ animation:none !important; } }
 
+
+  /* =====================================================================
+     DESKTOP SHELL: sidebar nav + centered column + right rail.
+     Only when the device is a real desktop (html[data-device="desktop"])
+     and the window is wide enough. Phones and tablets keep the app layout.
+     ===================================================================== */
+  :root{ --sidebar:248px; --main:720px; --rail:280px; --gap:28px; }
+  .sidenav, .rail, .upd, .tb-title{ display:none; }
+
+  /* update pill (all devices) */
+  .upd{ position:fixed; top:calc(var(--appbar) + 10px + env(safe-area-inset-top)); left:50%; z-index:170; display:flex; align-items:center; gap:10px;
+    padding:9px 10px 9px 16px; border-radius:100px; border:1px solid rgba(62,230,224,0.45); background:var(--glass); backdrop-filter:blur(16px);
+    color:var(--off); font-size:13.5px; box-shadow:0 18px 40px -14px rgba(0,0,0,0.7); cursor:pointer; font-family:inherit;
+    transform:translateX(-50%) translateY(-24px); opacity:0; visibility:hidden;
+    transition:transform 0.45s var(--spring), opacity 0.3s var(--ease), visibility 0s linear 0.45s; }
+  .upd.show{ transform:translateX(-50%) translateY(0); opacity:1; visibility:visible; transition-delay:0s; }
+  .upd b{ font-family:'JetBrains Mono', monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--ink); background:var(--cyan);
+    padding:7px 12px; border-radius:100px; font-weight:600; }
+
+  @media (min-width:1024px){
+    html[data-device="desktop"]{ --start: max(var(--gap), calc(50% - 498px)); --mainw: min(var(--main), calc(100vw - var(--sidebar) - var(--gap)*3 - 18px)); }
+    html[data-device="desktop"] body{ padding-bottom:60px; }
+    html[data-device="desktop"] .tabbar{ display:none; }
+    html[data-device="desktop"] .wrap{ max-width:none; width:var(--mainw); margin:0 0 0 calc(var(--start) + var(--sidebar) + var(--gap)); padding:0 0 80px; }
+    html[data-device="desktop"] .section-line{ max-width:none; }
+    html[data-device="desktop"] .topbar{ justify-content:flex-end; left:calc(var(--start) + var(--sidebar) + var(--gap)); right:auto; width:var(--mainw); padding-left:18px; padding-right:12px;
+      border-radius:0 0 20px 20px; border-left:1px solid transparent; border-right:1px solid transparent; }
+    html[data-device="desktop"] .topbar.solid{ border-left-color:var(--line); border-right-color:var(--line); }
+    html[data-device="desktop"] .tb-brand{ display:none; }
+    html[data-device="desktop"] .tb-title{ display:block; margin-right:auto; font-family:'Anton', sans-serif; font-size:17px; letter-spacing:0.06em; text-transform:uppercase; color:var(--off);
+      opacity:0; transform:translateY(-6px); transition:opacity 0.35s var(--ease), transform 0.35s var(--ease); }
+    html[data-device="desktop"] .topbar.solid .tb-title{ opacity:1; transform:none; }
+    html[data-device="desktop"] .resume{ left:calc(var(--start) + var(--sidebar) + var(--gap) + var(--mainw)/2); bottom:26px; }
+    html[data-device="desktop"] .toast{ left:calc(var(--start) + var(--sidebar) + var(--gap) + var(--mainw)/2); bottom:30px; }
+    html[data-device="desktop"] .upd{ left:calc(var(--start) + var(--sidebar) + var(--gap) + var(--mainw)/2); }
+    html[data-device="desktop"] .scroll-progress{ left:calc(var(--start) + var(--sidebar) + var(--gap)); width:0; max-width:var(--mainw); }
+
+    /* sidebar */
+    html[data-device="desktop"] .sidenav{ display:flex; position:fixed; top:0; bottom:0; left:var(--start); width:var(--sidebar); flex-direction:column; gap:4px;
+      padding:22px 12px 22px; z-index:150; border-right:1px solid var(--line); background:linear-gradient(180deg, rgba(15,9,22,0.55), rgba(11,7,16,0.35)); backdrop-filter:blur(10px); }
+    .sn-brand{ display:flex; align-items:center; gap:12px; padding:6px 10px 18px; text-decoration:none; color:var(--off); }
+    .sn-brand img{ width:44px; height:44px; border-radius:50%; box-shadow:0 0 0 1px var(--line), 0 10px 26px rgba(255,46,140,0.28); }
+    .sn-brand b{ display:block; font-family:'Anton', sans-serif; font-weight:400; font-size:21px; letter-spacing:0.08em; text-transform:uppercase; line-height:1;
+      background:linear-gradient(100deg, var(--off), var(--magenta)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+    .sn-brand span{ display:block; font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.18em; text-transform:uppercase; color:var(--off-faint); margin-top:5px; }
+    .snav{ display:flex; align-items:center; gap:14px; padding:12px 14px; border-radius:14px; color:var(--off-dim); font-size:15.5px; font-weight:600; text-decoration:none;
+      background:transparent; border:none; cursor:pointer; font-family:inherit; text-align:left; transition:background 0.2s var(--ease), color 0.2s var(--ease), transform 0.15s var(--spring); position:relative; }
+    .snav svg{ width:24px; height:24px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex-shrink:0; transition:transform 0.3s var(--spring); }
+    .snav:hover{ background:rgba(255,255,255,0.05); color:var(--off); }
+    .snav:active{ transform:scale(0.97); }
+    .snav.on{ color:var(--off); background:rgba(255,255,255,0.07); box-shadow:0 1px 0 rgba(255,255,255,0.05) inset; }
+    .snav.on svg{ stroke:var(--cyan); transform:scale(1.06); }
+    .snav .t-dot{ position:absolute; left:30px; top:10px; width:7px; height:7px; border-radius:50%; background:var(--magenta); box-shadow:0 0 0 2px var(--ink); }
+    .snav .t-dot[hidden]{ display:none; }
+    .sn-sub{ margin-top:10px; padding:12px 14px 0; border-top:1px solid var(--line); display:flex; flex-direction:column; gap:10px; }
+    .sn-sub a{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.16em; text-transform:uppercase; color:var(--off-faint); text-decoration:none; transition:color 0.2s; }
+    .sn-sub a:hover{ color:var(--cyan); }
+    .sn-cta{ margin:16px 4px 0; padding:15px 20px; min-height:50px; font-size:12.5px; }
+    .sn-foot{ margin-top:auto; padding:0 14px; font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--off-faint); line-height:1.9; }
+    .sn-foot b{ color:var(--gold); font-weight:500; }
+
+    /* hero: two columns */
+    html[data-device="desktop"] header{ display:grid; grid-template-columns:1.05fr 0.95fr; gap:36px; align-items:center; text-align:left;
+      min-height:calc(100vh - 40px); padding:calc(var(--appbar) + 30px) 0 50px; }
+    html[data-device="desktop"] .hero-visual{ order:2; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+    html[data-device="desktop"] .hero-visual .hero-logo{ width:210px; height:210px; margin-bottom:26px; }
+    html[data-device="desktop"] .hero-visual .hero-wave{ margin-bottom:0; }
+    html[data-device="desktop"] .hero-copy{ order:1; }
+    html[data-device="desktop"] h1{ font-size:clamp(72px, 7.2vw, 104px); }
+    html[data-device="desktop"] .hero-sub{ margin-left:0; max-width:480px; font-size:17.5px; }
+    html[data-device="desktop"] .hero-ring{ margin-left:0; }
+    html[data-device="desktop"] .hero-stats{ justify-content:flex-start; }
+    html[data-device="desktop"] .hero-cta{ align-items:flex-start; flex-direction:row; flex-wrap:wrap; }
+    html[data-device="desktop"] .hero-cta .built-by{ width:100%; margin-top:14px; }
+    html[data-device="desktop"] .scroll-hint{ display:none; }
+
+    /* wider grids */
+    html[data-device="desktop"] section{ padding:64px 0; }
+    html[data-device="desktop"] .path-grid{ grid-template-columns:repeat(4, 1fr); }
+    html[data-device="desktop"] .path{ min-height:150px; }
+    html[data-device="desktop"] .win-grid{ display:grid; grid-template-columns:1fr 1fr; }
+    html[data-device="desktop"] .win.hero-win{ grid-column:1 / -1; }
+    html[data-device="desktop"] .term-grid{ grid-template-columns:repeat(3, 1fr); }
+    html[data-device="desktop"] .calc-out{ grid-template-columns:repeat(4, 1fr); }
+    html[data-device="desktop"] .wallet-grid{ flex-direction:row; }
+    html[data-device="desktop"] .wallet-card{ flex:1; }
+    html[data-device="desktop"] .lc-body .card{ padding:34px 32px 30px; }
+    html[data-device="desktop"] .lc-body .card h2{ font-size:26px; }
+    html[data-device="desktop"] .moves{ display:grid; grid-template-columns:1fr 1fr; }
+    html[data-device="desktop"] .faq-prompt{ flex-direction:row; align-items:center; justify-content:space-between; }
+    html[data-device="desktop"] .faq-prompt p{ flex:1; }
+    html[data-device="desktop"] .panel-card{ max-width:440px; }
+  }
+
+  /* right rail only when there is room for all three columns */
+  @media (min-width:1340px){
+    html[data-device="desktop"]{ --start: max(var(--gap), calc(50% - 652px)); }
+    html[data-device="desktop"] .rail{ display:flex; position:fixed; top:calc(var(--appbar) + 14px); left:calc(var(--start) + var(--sidebar) + var(--gap) + var(--main) + var(--gap));
+      width:var(--rail); flex-direction:column; gap:14px; z-index:5; max-height:calc(100vh - var(--appbar) - 30px); overflow-y:auto; scrollbar-width:none; }
+    .rail::-webkit-scrollbar{ display:none; }
+    .rail-card{ border:1px solid rgba(255,255,255,0.09); border-radius:18px; padding:18px; background:linear-gradient(160deg, var(--panel), var(--panel-2));
+      background-image:var(--sheen), linear-gradient(160deg, var(--panel), var(--panel-2)); box-shadow:var(--card-shadow); }
+    .rail-card .tag{ font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.22em; text-transform:uppercase; color:var(--cyan); margin-bottom:12px; }
+    .rail-prog{ display:flex; align-items:center; gap:14px; }
+    .rail-prog .ring{ width:56px; height:56px; }
+    .rail-prog b{ display:block; font-size:16px; color:var(--off); }
+    .rail-prog span{ display:block; font-family:'JetBrains Mono', monospace; font-size:10.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--off-faint); margin-top:3px; }
+    .rail-stats{ display:flex; gap:8px; margin-top:14px; }
+    .rail-stats div{ flex:1; border:1px solid var(--line); border-radius:12px; padding:10px 8px; text-align:center; background:rgba(0,0,0,0.2); }
+    .rail-stats .n{ font-family:'Anton', sans-serif; font-size:22px; color:var(--gold); }
+    .rail-stats .n.txt{ font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:13px; line-height:26px; color:var(--cyan); }
+    .rail-stats .l{ font-family:'JetBrains Mono', monospace; font-size:9px; letter-spacing:0.14em; text-transform:uppercase; color:var(--off-faint); margin-top:2px; }
+    .rail-card .cta-btn{ width:100%; margin-top:14px; padding:14px 18px; min-height:48px; font-size:12px; }
+    .rail-links a{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:11px 0; border-top:1px dashed var(--line); text-decoration:none; color:var(--off); font-size:14px; transition:color 0.2s; cursor:pointer; }
+    .rail-links a:first-child{ border-top:none; padding-top:0; }
+    .rail-links a:hover{ color:var(--cyan); }
+    .rail-links a small{ font-family:'JetBrains Mono', monospace; font-size:9.5px; letter-spacing:0.12em; text-transform:uppercase; color:var(--off-faint); }
+    .rail-nem{ display:flex; align-items:center; gap:12px; }
+    .rail-nem img{ width:48px; height:48px; border-radius:50%; box-shadow:0 0 0 2px rgba(255,255,255,0.06); }
+    .rail-nem b{ display:block; font-size:15px; color:var(--off); }
+    .rail-nem span{ display:block; font-size:12px; color:var(--off-faint); margin-top:2px; }
+  }
+
 </style>
 </head>
 <body>
@@ -1030,6 +1173,7 @@
 <!-- ================= TOPBAR: points / DMs / notifications / account ================= -->
 <div class="topbar" id="topbar">
   <a class="tb-brand" href="#top" aria-label="Surfboard, back to top"><img src="logo.png" alt="" width="30" height="30"><b>Surfboard</b></a>
+  <span class="tb-title" id="tbTitle" style="display:none">Surfboard</span>
   <button class="tb-chip" id="tbPoints" type="button" aria-label="Your N3M Respect points">&#127941; <b id="tbPointsN">0</b></button>
   <button class="tb-btn" id="tbDm" type="button" aria-label="Direct messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-5 4v-4A2.5 2.5 0 0 1 4 14.5z"/><path d="M8.5 9.5h7M8.5 12.5h4"/></svg><span class="tb-dot" id="dmDot" hidden></span></button>
   <button class="tb-btn" id="tbBell" type="button" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 20a2 2 0 0 0 4 0"/></svg><span class="tb-count" id="bellCount" hidden>0</span></button>
@@ -1044,8 +1188,11 @@
 
   <!-- ================= HERO ================= -->
   <header>
-    <img class="hero-logo" src="logo.png" alt="Surfboard, a build by N3M3SIS" width="130" height="130">
-    <div class="hero-wave" id="heroWave"></div>
+    <div class="hero-visual">
+      <img class="hero-logo" src="logo.png" alt="Surfboard, a build by N3M3SIS" width="130" height="130">
+      <div class="hero-wave" id="heroWave"></div>
+    </div>
+    <div class="hero-copy">
     <h1>Surf<br>board</h1>
     <p class="hero-sub" id="heroSub">The pro onboarding for anyone who wants to get onchain. Eight short lessons, hands-on exercises, a wallet you actually understand, and a crew riding in with you.</p>
     <div class="hero-ring" id="heroRing" hidden>
@@ -1059,6 +1206,7 @@
       <div class="built-by">A build by <b>N3M3SIS</b> &middot; ZABAL Gamez S1 artist champion</div>
     </div>
     <div class="scroll-hint">Scroll to start</div>
+    </div>
   </header>
 
   <!-- ================= PATHS ================= -->
@@ -1712,6 +1860,47 @@
 
 </div>
 
+<!-- ================= DESKTOP SIDEBAR ================= -->
+<aside class="sidenav" id="sidenav" aria-label="Sections">
+  <a class="sn-brand" href="#top"><img src="logo.png" alt="" width="44" height="44"><span><b>Surfboard</b><span>by N3M3SIS</span></span></a>
+  <a class="snav on" href="#top" data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5h4v5"/></svg>Home</a>
+  <a class="snav" href="#course" data-tab="learn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5z"/><path d="M4 18.5A2.5 2.5 0 0 1 6.5 16H20"/><path d="M9 8h6"/></svg>Learn</a>
+  <a class="snav" href="#songchainn" data-tab="worlds"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c3 3.2 3 14.8 0 18"/><path d="M12 3c-3 3.2-3 14.8 0 18"/></svg>Worlds</a>
+  <a class="snav" href="#community" data-tab="lineup"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="9" r="2.5"/><path d="M16 15.5a5 5 0 0 1 5.5 4.5"/></svg>Lineup</a>
+  <button class="snav" type="button" data-tab="me" id="snavMe"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8.5" r="4"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg><span class="t-dot" id="meDot2" hidden></span>Me</button>
+  <div class="sn-sub">
+    <a href="#paths">Pick your path</a>
+    <a href="#lingo">Lingo game</a>
+    <a href="#deepdives">Deep Dives</a>
+    <a href="#zabal">Gamez history</a>
+    <a href="#ask">Ask AI</a>
+  </div>
+  <a class="cta-btn sn-cta" href="#course" id="snStart">Start the course &#127940;</a>
+  <div class="sn-foot">$ONGCHAINN &middot; ZABAL Gamez<br>The ZAO &middot; Built by <b>N3M3SIS</b></div>
+</aside>
+
+<!-- ================= DESKTOP RIGHT RAIL ================= -->
+<aside class="rail" id="rail" aria-label="Your progress and quick links">
+  <div class="rail-card" id="railProgress"></div>
+  <div class="rail-card">
+    <div class="tag">Where the course leads</div>
+    <div class="rail-links">
+      <a data-cta="claim">Claim your artist account <small>$ONGCHAINN</small></a>
+      <a data-cta="worlds">Walk the Artist Worlds <small>Phase 3</small></a>
+      <a data-cta="zora">Coin your work on Zora <small>Base</small></a>
+      <a data-cta="basename">Get a Basename <small>Base</small></a>
+      <a data-cta="results">Season 1 results <small>ZABAL Gamez</small></a>
+    </div>
+  </div>
+  <div class="rail-card">
+    <div class="tag">Built by</div>
+    <div class="rail-nem"><img src="logo.png" alt="N3M3SIS" width="48" height="48"><div><b>N3M3SIS</b><span>ZABAL Gamez S1 artist champion &middot; Lusaka</span></div></div>
+    <a class="cta-btn ghost" href="https://x.com/NemesisVsLadyryn" target="_blank" rel="noopener">Follow on X &rarr;</a>
+  </div>
+</aside>
+
+<button class="upd" id="updPill" type="button" hidden>Surfboard just got an update <b>Refresh</b></button>
+
 <!-- ================= BOTTOM TAB BAR ================= -->
 <nav class="tabbar" id="tabbar" aria-label="Sections">
   <a class="tab on" href="#top" data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10.5V20h13v-9.5"/><path d="M10 20v-5h4v5"/></svg>Home</a>
@@ -1834,7 +2023,43 @@
     const m = milestones();
     if(m.deck_complete && m.wallet_done) track('onboarded', null, true);
   }
-  track('first_visit', null, true);
+  track('first_visit', {device: window.sbDevice || 'unknown'}, true);
+
+  // ---- auto update: no caches to clear, ever ----
+  // version.json is served with no-store and fetched with a cache buster. When the live build is
+  // newer than this page, we reload the moment the tab is idle or comes back, and show a pill meanwhile.
+  const SB_VERSION = '20260910T005055Z';
+  (function(){
+    let pending = false, timer = null;
+    const pill = document.getElementById('updPill');
+    // loop guard: never auto-reload twice within 10 minutes (a stale CDN copy must not bounce the page)
+    function lastAuto(){ try{ return +sessionStorage.getItem('sb_upd_at') || 0; }catch(e){ return 0; } }
+    function canAuto(){ return Date.now() - lastAuto() > 10 * 60 * 1000; }
+    function reload(auto){
+      if(auto){ if(!canAuto()) return; try{ sessionStorage.setItem('sb_upd_at', String(Date.now())); }catch(e){} }
+      try{ location.replace(location.pathname + '?v=' + Date.now() + location.hash); }catch(e){ location.reload(); }
+    }
+    function busy(){ return document.querySelectorAll('.panel:not([hidden]), .modal:not([hidden])').length > 0 || document.activeElement && /INPUT|TEXTAREA/.test(document.activeElement.tagName); }
+    function showPill(){ if(pill){ pill.hidden = false; requestAnimationFrame(function(){ pill.classList.add('show'); }); } }
+    function found(){
+      if(pending) return; pending = true;
+      track('update_found', {from: SB_VERSION});
+      if(document.hidden && canAuto()){ reload(true); return; }
+      showPill();
+    }
+    function check(){
+      if(pending || location.protocol === 'file:') return;
+      fetch('version.json?t=' + Date.now(), {cache:'no-store'}).then(function(r){ return r.ok ? r.json() : null; }).then(function(j){
+        if(j && j.v && j.v !== SB_VERSION) found();
+      }).catch(function(){});
+    }
+    if(pill) pill.addEventListener('click', function(){ reload(false); });
+    document.addEventListener('visibilitychange', function(){ if(document.hidden){ if(pending) reload(true); } else { check(); } });
+    window.addEventListener('focus', check);
+    window.addEventListener('online', check);
+    timer = setInterval(function(){ check(); if(pending && !busy()) reload(true); }, 3 * 60 * 1000);
+    setTimeout(check, 4000);
+  })();
 
   function buzz(ms){ try{ if(navigator.vibrate) navigator.vibrate(ms||12); }catch(e){} }
 
@@ -2238,6 +2463,17 @@
       } else { ring.hidden = true; }
       renderResume();
       renderCert();
+      renderRail(d, nx);
+    }
+    function renderRail(d, nx){
+      const rp = el('railProgress'); if(!rp) return;
+      const pts = (el('tbPointsN')||{}).textContent || '0';
+      const name = profileName();
+      rp.innerHTML = '<div class="tag">Your ride</div>'+
+        '<div class="rail-prog"><svg class="ring" viewBox="0 0 46 46" aria-hidden="true"><circle class="r-bg" cx="23" cy="23" r="19"></circle><circle class="r-fg" cx="23" cy="23" r="19" stroke-dasharray="119.4" stroke-dashoffset="'+(RING*(1-d/TOTAL))+'"></circle></svg>'+
+        '<div><b>'+(d===TOTAL ? 'Onchain ready' : (name ? esc(name.split(/\s+/)[0])+', keep going' : 'Ride the course'))+'</b><span>'+d+' of '+TOTAL+' lessons'+(nx?' &middot; next: '+nx:'')+'</span></div></div>'+
+        '<div class="rail-stats"><div><div class="n" id="railPts">'+esc(pts)+'</div><div class="l">N3M Respect</div></div><div><div class="n">'+d+'</div><div class="l">Lessons</div></div><div><div class="n'+(course.path ? ' txt' : '')+'">'+(course.path ? esc(PATHS[course.path].name.split(' ')[0]) : '?')+'</div><div class="l">Path</div></div></div>'+
+        (d===TOTAL ? '<a class="cta-btn" href="#cert">See your certificate &#127891;</a>' : '<a class="cta-btn" href="#lesson-'+(nx||1)+'" data-go="1">'+(d? 'Continue lesson '+nx : 'Start lesson 1')+' &rarr;</a>');
     }
 
     /* ---------- resume bar ---------- */
@@ -2603,7 +2839,7 @@
     const tabFor = {};
     Object.keys(TABS).forEach(function(t){ TABS[t].forEach(function(id){ tabFor[id] = t; }); });
     let currentTab = 'home';
-    function setTab(t){ if(t===currentTab) return; currentTab = t; document.querySelectorAll('.tab').forEach(function(b){ b.classList.toggle('on', b.dataset.tab===t); }); }
+    function setTab(t){ if(t===currentTab) return; currentTab = t; document.querySelectorAll('.tab, .snav').forEach(function(b){ b.classList.toggle('on', b.dataset.tab===t); }); }
     const SECS = ['paths','course','vs','lingo','deepdives','songchainn','zabal','nemesis','ask','community','techedu'].map(function(id){ return el(id); }).filter(Boolean);
     let tabTick = false;
     function trackTab(){
@@ -2617,6 +2853,15 @@
     window.addEventListener('resize', trackTab); trackTab();
     document.querySelectorAll('.tab[href]').forEach(function(a){ a.addEventListener('click', function(){ buzz(6); track('tab', {tab:a.dataset.tab}); }); });
     el('tabMe').addEventListener('click', function(){ buzz(6); track('tab', {tab:'me'}); if(window.sbOpenAuth) window.sbOpenAuth(); });
+    const snMe = el('snavMe'); if(snMe) snMe.addEventListener('click', function(){ track('tab', {tab:'me', where:'sidebar'}); if(window.sbOpenAuth) window.sbOpenAuth(); });
+    document.querySelectorAll('.snav[href], .sn-sub a').forEach(function(a){ a.addEventListener('click', function(){ track('tab', {tab:a.dataset.tab||a.getAttribute('href'), where:'sidebar'}); }); });
+    const rp = el('railProgress');
+    if(rp) rp.addEventListener('click', function(e){ const g = e.target.closest('[data-go]'); if(g){ e.preventDefault(); openLesson(nextLesson()||1, true); } });
+    // the sticky column title follows the active section on desktop
+    const TITLES = {home:'Surfboard', learn:'The course', worlds:'$ONGCHAINN and the Gamez', lineup:'The lineup'};
+    const _setTab = setTab;
+    setTab = function(t){ _setTab(t); const tt = el('tbTitle'); if(tt){ tt.textContent = TITLES[t] || 'Surfboard'; tt.style.display = ''; } };
+    (function(){ const tt = el('tbTitle'); if(tt){ tt.textContent = 'Surfboard'; tt.style.display = ''; } })();
 
     /* ---------- render all exercises ---------- */
     function renderEx(node){
@@ -2757,7 +3002,7 @@
       renderSurferCard();
       return true;
     }
-    function renderPointsChip(){ const n = el('tbPointsN'); if(n) n.textContent = points(); const md = el('meDot'); if(md) md.hidden = !(points()>=REWARD_AT && !reward.claimed); }
+    function renderPointsChip(){ const n = el('tbPointsN'); if(n) n.textContent = points(); const md = el('meDot'); if(md) md.hidden = !(points()>=REWARD_AT && !reward.claimed); const md2 = el('meDot2'); if(md2) md2.hidden = !(points()>=REWARD_AT && !reward.claimed); const rpn = el('railPts'); if(rpn) rpn.textContent = points(); }
     function checkReward(){
       if(points()>=REWARD_AT && !reward.notified){
         reward.notified = true; sSet('sb_reward', reward);
